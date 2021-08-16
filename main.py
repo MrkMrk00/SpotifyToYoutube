@@ -44,12 +44,9 @@ def main():
         songs = []
         # nefunguje jim limit, tak se to prostě spojí do jednoho seznamu pomocí offsetu
         # nejdřív to jede od 0, pokud je ten playlist delší než 100, tak to jede znovu od 100 -> 200 (limit je 100)
-        while True:
+        while (len(songs)+ofs) % 100 == 0:
             songs += (sp.playlist_items(playlist_id=pl['id'], offset=ofs)['items'])
-            if (len(songs)+ofs) % 100 == 0:
-                ofs += 100
-            else:
-                break
+            ofs += 100
 
         # dict na songy {'nazev playlistu': ['nazev songu', ...], ...}
         playlists[pl['name']] = []
